@@ -8,5 +8,5 @@ urlpatterns = patterns('',
     # url(r'^$', 'pypaywheel.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
-    url(r'^superadmin/', include(admin.site.urls)),
+    url(r'^$', 'admin.views.home', name='home'),
 )
