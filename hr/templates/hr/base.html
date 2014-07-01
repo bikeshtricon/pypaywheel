@@ -1,0 +1,24 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+
+{% load staticfiles %}
+
+<head>
+   <title>{% block title %}My amazing site{% endblock %}</title>
+   <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+</head>
+
+<body>
+    {% block header %}{% include "hr/header.html" %}{% endblock %}
+    
+    {% block leftsidebar %}{% include "hr/leftsidebar.html" %}{% endblock %}
+  
+  	{% block content %}{% endblock %}
+  	
+  	{% block rightsidebar %}{% include "hr/rightsidebar.html" %}{% endblock %}
+  	
+  	{% block footer %}{% include "hr/footer.html" %}{% endblock %}
+  	
+</body>
+
+</html>
