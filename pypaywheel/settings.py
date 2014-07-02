@@ -37,7 +37,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pypaywheel',
-    'hr'
+    'hr',
+    'dashboardapp'
 )
 
 MIDDLEWARE_CLASSES = (
