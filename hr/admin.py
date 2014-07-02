@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from pypaywheel.models import leaveRegister 
+
+from pypaywheel.models import leaveType
+
+admin.site.register(leaveType)
+
+admin.site.register(leaveRegister)

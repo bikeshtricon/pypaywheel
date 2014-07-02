@@ -1,5 +1,4 @@
 from django.db import models
-'''
 from django.contrib.auth.models import User
 
 class leaveType(models.Model):
@@ -15,7 +14,6 @@ class leaveRegister(models.Model):
     leaveFrom = models.DateField()
     leaveTo = models.DateField()
     reason = models.TextField()
-    status = models.CharField(max_length=200)
-    hrId =models.ForeignKey(User, related_name = 'leave_approved_by' )
+    status = models.CharField(max_length=200, null=True, blank=True)
+    hrId =models.ForeignKey(User, related_name = 'leave_approved_by', default = 0 )
     
-'''
