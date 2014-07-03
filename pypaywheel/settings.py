@@ -90,6 +90,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# for setting static in pypywheel folder
+# putting css,js, img are in one place
+STATICFILES_DIRS = [
+    BASE_DIR+"/pypaywheel/static/",
+]
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
