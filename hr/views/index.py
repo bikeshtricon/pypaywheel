@@ -13,18 +13,23 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 #for redirect
 from django.shortcuts import redirect
 
+#for email
+from django.core.mail import send_mail
+
+#email from email templet
+
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
 
 
-from pprint import pprint
-
+#importing our module
 from pypaywheel.models import leaveRegister
 
 from pypaywheel.models import leaveType
 
-
+#importing login
 import logging
-
-# Get an instance of a logger
 log = logging.getLogger(__name__)
 
 
@@ -32,42 +37,12 @@ log = logging.getLogger(__name__)
 def is_in_multiple_groups(user):
     return user.groups.filter(name__in=['hr'])
 
-#@login_required(login_url='/login/')
-#@user_passes_test(is_in_multiple_groups, login_url='/login/')
+
+@login_required(login_url='/dashboardapp/')
+@user_passes_test(is_in_multiple_groups, login_url='/dashboardapp/')
 def dashboard(request):
 
-    #user = User.objects.create_user('anjnee', 'anjnee@triconinfotech.com', 'password')
-    
-    # if you want to change other fields.
-    #user.last_name = 'sharma'
-    #user.save()
-    
-    #g = Group.objects.get(name='developer') 
-    #g.user_set.add(user)
-
-    #login in
-    user = authenticate(username='john', password="password")
-    
-
-
-    
-    #group = Group(name="developer")
-    #group.save()
-
-    #login in hr user
-    
-    
-    #working
     leaveRequests = leaveRegister.objects.filter(status='') .select_related() #leaveType
-    
-    '''
-    for b in bs:
-        #log.info(b.leaveType)
-        log.info(b.leaveType.status)
-        log.info(b.hrId.username)
-        log.info(b.uId.username)
-        log.info("----------------------")
-    '''  
     
     template = loader.get_template('hr/index.html')
      
@@ -92,6 +67,24 @@ def leaveRequestsaction(request, reqId, action):
         for leaveRequest in leaveRequests:
             leaveRequest.uId.email
             log.info("leaveRequests.uId.email "+leaveRequest.uId.email)
+            
+            #send ing plain text email
+            #send_mail('Leave approved', 'Hi '+leaveRequest.uId.first_name+" "+leaveRequest.uId.last_name+" Your leave approved by "+request.user.first_name+" "+request.user.last_name, 'admin@myfriendsgroup.com',[leaveRequest.uId.email], fail_silently=False)
+
+            #email from email templet
+            
+            plaintext = get_template('email/leaveapproved.txt')
+            htmly     = get_template('email/leaveapproved.html')
+            
+            d = Context({ 'username': leaveRequest.uId.first_name+" "+leaveRequest.uId.last_name, 'action': action })
+            
+            subject, from_email, to = 'Leave approved', 'admin@myfriendsgroup.com', leaveRequest.uId.email
+            text_content = plaintext.render(d)
+            html_content = htmly.render(d)
+            msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+
         
     return redirect('/hr')
 

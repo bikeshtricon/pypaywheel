@@ -6,11 +6,10 @@
 <head>
    <title>{% block title %}My amazing site{% endblock %}</title>
    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css">
-   
+   {% block pagemeta %}{% endblock %}
 </head>
 
 <body>
-ssssssss{{ STATIC_URL }}
 
     {% block header %}{% include "header.html" %}{% endblock %}
     
