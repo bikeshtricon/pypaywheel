@@ -2,5 +2,37 @@
 
 {% block content %}
 <br>
-{{latest_blog_posts}}
+
+	<div class="admin dashboard">
+	
+	
+	
+	{% if leaveRequests %}
+	
+		<div class="leaverequest"> 
+			<table>
+				<tr>
+					<th>Emp Name</th><th>leaveType</th> <th>From Date</th> <th>To date</th> <th>Reason</th> <th>Status</th> <th>Action</th>
+				</tr>
+				{% for leaveRequest in leaveRequests %}
+					<tr>
+						<td>{{leaveRequest.uId.username}}</td>   
+						<td>{{leaveRequest.leaveType.type}}</td>  
+						<td>{{leaveRequest.leaveFrom}}</td> 
+						<td>{{leaveRequest.leaveTo}}</td> 
+						<td>{{leaveRequest.reason}}</td>     
+						<td>New</td>  
+						<td> <a href="{{ leaveRequest.id }}/accept">Accept</a> <a href="{{ leaveRequest.id }}/reject">reject</a></td>
+					</tr>
+				{% endfor %}
+			</ul>
+		</table>
+	{% endif %}
+		
+		
+	</div>
+	
+<br>
 {% endblock %}
+
+
