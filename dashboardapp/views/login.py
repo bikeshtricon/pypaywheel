@@ -37,7 +37,7 @@ def log_in(request):
                 logger.debug("not a developer ans hr")
     
     
-    template = loader.get_template('login.html')
+    template = loader.get_template('dashboardapp/login.html')
     context = RequestContext(request, {'latest_blog_posts': "posts",})
     return HttpResponse(template.render(context))
 
