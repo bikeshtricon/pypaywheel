@@ -22,7 +22,10 @@
 						<td>{{leaveRequest.leaveTo}}</td> 
 						<td>{{leaveRequest.reason}}</td>     
 						<td>New</td>  
-						<td> <a href="{{ leaveRequest.id }}/accept">Accept</a> <a href="{{ leaveRequest.id }}/reject">reject</a></td>
+						<td> 
+							<a href="javascript:;" data-id="{{leaveRequest.id}}" class="leaveActiont">Accept</a> 
+							<a href="javascript:;" data-id="{{leaveRequest.id}}" class="leaveActiont">Reject</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</ul>
@@ -34,6 +37,13 @@
 	</div>
 	
 <br>
+{% endblock %}
+
+
+
+{% block footerScript %}
+ 	<script src="{{ STATIC_URL }}js/hr.js"></script>
+
 {% endblock %}
 
 

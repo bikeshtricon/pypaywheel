@@ -6,7 +6,8 @@
 <head>
    <title>{% block title %}My amazing site{% endblock %}</title>
    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css">
-   {% block pagemeta %}{% endblock %}
+   <script src="{{ STATIC_URL }}js/jquery-2.1.1.min.js"></script>
+   {% block headerScript %}{% endblock %}
 </head>
 
 <body>
@@ -20,6 +21,8 @@
   	{% block rightsidebar %}{% include "rightsidebar.html" %}{% endblock %}
   	
   	{% block footer %}{% include "footer.html" %}{% endblock %}
+  	
+  	{% block footerScript %}{% endblock %}
   	
 </body>
 

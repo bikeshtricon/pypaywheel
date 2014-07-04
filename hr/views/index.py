@@ -17,7 +17,6 @@ from django.shortcuts import redirect
 from django.core.mail import send_mail
 
 #email from email templet
-
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
@@ -51,27 +50,23 @@ def dashboard(request):
     return HttpResponse(template.render(context))
 
 
+'''
 #@login_required(login_url='/login/')
 #@user_passes_test(is_in_multiple_groups, login_url='/login/')
 def leaveRequestsaction(request, reqId, action):
     
-    actions=['accept', 'reject']
+    action=action.strip()
+    actions=['Accept', 'Reject']
     
     leaveRequests = leaveRegister.objects.filter(id=reqId).select_related()
     
     if action in actions and leaveRequests:
         #leaveRegister.objects.filter(id=reqId).update(status=action)
         
+        ''-'
         #sendning mail to user
         
         for leaveRequest in leaveRequests:
-            leaveRequest.uId.email
-            log.info("leaveRequests.uId.email "+leaveRequest.uId.email)
-            
-            #send ing plain text email
-            #send_mail('Leave approved', 'Hi '+leaveRequest.uId.first_name+" "+leaveRequest.uId.last_name+" Your leave approved by "+request.user.first_name+" "+request.user.last_name, 'admin@myfriendsgroup.com',[leaveRequest.uId.email], fail_silently=False)
-
-            #email from email templet
             
             plaintext = get_template('email/leaveapproved.txt')
             htmly     = get_template('email/leaveapproved.html')
@@ -84,7 +79,56 @@ def leaveRequestsaction(request, reqId, action):
             msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
             msg.attach_alternative(html_content, "text/html")
             msg.send()
-
+        ''-'
         
     return redirect('/hr')
+'''
 
+
+from django.utils import simplejson
+
+#@login_required(login_url='/login/')
+#@user_passes_test(is_in_multiple_groups, login_url='/login/')
+def leaveRequestsaction(request):
+    
+    results = {'success':False}
+    
+    if 'id' in request.GET and 'action' in request.GET :
+        
+        reqId=request.GET['id'].strip()
+        action=request.GET['action'].strip()
+        
+        leaveRequests = leaveRegister.objects.filter(id=reqId).select_related()
+        
+        #allowed actions
+        actions=['Accept', 'Reject']
+        
+        #chking reqId in table
+        if action in actions and leaveRequests:
+            leaveRegister.objects.filter(id=reqId).update(status=action)
+            
+            '''
+            #sendning mail to user
+            
+            for leaveRequest in leaveRequests:
+                
+                plaintext = get_template('email/leaveapproved.txt')
+                htmly     = get_template('email/leaveapproved.html')
+                
+                d = Context({ 'username': leaveRequest.uId.first_name+" "+leaveRequest.uId.last_name, 'action': action })
+                
+                subject, from_email, to = 'Leave approved', 'admin@myfriendsgroup.com', leaveRequest.uId.email
+                text_content = plaintext.render(d)
+                html_content = htmly.render(d)
+                msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+                msg.attach_alternative(html_content, "text/html")
+                msg.send()
+            '''
+
+        
+            results = {'success':True}
+            
+    json = simplejson.dumps(results)
+    return HttpResponse(json, mimetype='application/json')
+
+            
