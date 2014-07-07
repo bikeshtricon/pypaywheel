@@ -1,16 +1,52 @@
 <html>
 <body>
-
-	<form>
-	Employee name: <input type="text" name="name"><br>
-	Leave type   : <select name = "leave">
-  					<option value="Casual">Casual leave</option>
- 					<option value="Losss">Losss of pay</option>
-  					<option value="Sick">Sick leave</option>
-  					<option value="Earned">Earned leave</option>
-					</select> 
+    
+    
+	<form method = 'post' action=".">
+    <table>
+	{% csrf_token %}
+    <tr>
+     <td>Employee name:</td>
+	 <td><input type="text" name="name" value = {{username }}></td>
+	</tr>
+    <tr>
+	<td>Leave type   : </td>
+    <td><select name = "leavetype">
+    
+	{% for type in leavetype %}
+	
+  					<option value={{type.id}}>{{type}}</option>
+ 					
+	
+	{% endfor %}	
+</td>
+    		
+				</select> 
+                   <tr>
+					<td>From:</td>
+                    <td><input type = "date" name = "from"></td>
+                   </tr>
+                    
+                    <tr> 
+					<td>To:</td>  <td><input type = "date" name = "to"></td>
+                    </tr>
+                    <div>
+                    <tr>
+                    <td>
+                    <span style="display:inline-block; vertical-align:top;">Reason</span>
+					</td>
+                    <td>
+					<textarea name = "reason"></textarea>
+                    </td>
+                    </tr>
+                    <div/>
+                    <tr>
+					<td><input type="submit" value="Apply"></td>
+                    </tr>
+    </table>
 
 	</form>
+    
 	
-</body>>
-</html>>
+</body>
+</html>

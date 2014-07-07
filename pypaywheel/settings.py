@@ -146,6 +146,16 @@ LOGGING = {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',
         },
+                
+                
+                
+        'pypaywheel': {
+            'handlers': ['console', 'logfile'],
+            'level': 'DEBUG',
+        },
+                
+                
+                
         'dashboardapp': {
             'handlers': ['console', 'logfile'],
             'level': 'DEBUG',

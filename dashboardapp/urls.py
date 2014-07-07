@@ -5,6 +5,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
-    url(r'^$', 'dashboardapp.views.login.log_in', name='home'),
+    
     
 )
