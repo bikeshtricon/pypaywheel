@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.contrib.auth.models import User , Group
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from pypaywheel.models import leaveRegister
 from pypaywheel.models import leaveType
@@ -48,6 +48,11 @@ def log_in(request):
     template = loader.get_template('dashboardapp/login.html')
     context = RequestContext(request, {})
     return HttpResponse(template.render(context))
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/login")
 
 
 

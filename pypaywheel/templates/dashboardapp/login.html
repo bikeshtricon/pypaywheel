@@ -1,11 +1,6 @@
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="../static/login.css">
+{% extends "base.html" %}
 
-<title>this is login page for both hr and developer</title>
-</head>
-
-<body >
+{% block content %}
 
 <form  method = 'post'>
 {% csrf_token %}
@@ -15,5 +10,4 @@ Password :  <input type="Password" name="password"><br>
 
 </form>
  
-</body>
-</html>
+{% endblock %}
