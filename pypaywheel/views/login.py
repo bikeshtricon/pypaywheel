@@ -1,12 +1,11 @@
 from django.http import HttpResponse
 from django.template import RequestContext, loader
 from django.contrib.auth.models import User , Group
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from pypaywheel.models import leaveRegister
 from pypaywheel.models import leaveType
 from django.core.mail import send_mail
-
 
 import logging
 logger = logging.getLogger(__name__)
@@ -97,68 +96,12 @@ def dashboard(request):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect("/login")
 
 
 
 
     
+

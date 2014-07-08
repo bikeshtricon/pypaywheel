@@ -1,3 +1,13 @@
 <div class="header">
 
+<span class="loginLogout">
+{% if request.user.username  %}
+	Hi {{ request.user.first_name }} {{request.user.last_name}} (<a href="/logout">Logout</a>)
+{% else %}
+    <a href="/login">Login</a> 
+{% endif %}
+</span>
+
+
+
 </div>

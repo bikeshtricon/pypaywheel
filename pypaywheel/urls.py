@@ -11,5 +11,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^hr/', include('hr.urls')),
     url(r'^login/', 'pypaywheel.views.login.log_in'),
+    url(r'^logout/', 'pypaywheel.views.login.logout_view'),
+    
     url(r'^dashboard/', 'pypaywheel.views.login.dashboard'),
 )
