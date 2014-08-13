@@ -50,3 +50,5 @@ def dashboard(request):
     template = loader.get_template('dashboardapp/dashboard.html')
     context = RequestContext(request, {'username': username,'leavetype':leaveTypes})
     return HttpResponse(template.render(context))
+    
+    //added new line for testing
