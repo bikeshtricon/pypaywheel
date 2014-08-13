@@ -141,4 +141,4 @@ def dashboard(request):
     context = RequestContext(request, {'username': username,'leavetype':leaveTypes})
     return HttpResponse(template.render(context))
     
-    //added new line for testing
+    #added new line for testing
